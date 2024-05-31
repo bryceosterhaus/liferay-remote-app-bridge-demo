@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <div>
+      <input id="message" placeholder="message" value="hello-world" />
+      <button id="openToast">Open Toast</button>
+    </div>
+
+    <div>
+      <input
+        id="navigatePath"
+        placeholder="message"
+        value="/web/guest/search"
+      />
+      <button id="navigateButton">Navigate to path</button>
+    </div>
+  </body>
+
+  <script>
+    function sendMessage(data) {
+      window.parent.postMessage(data, "*");
+    }
+
+    document.querySelector("#openToast").addEventListener("click", function () {
+      sendMessage({
+        type: "openToast",
+        message: document.querySelector("#message").value,
+      });
+    });
+
+    document
+      .querySelector("#navigateButton")
+      .addEventListener("click", function () {
+        sendMessage({
+          type: "navigate",
+          url: document.querySelector("#navigatePath").value,
+        });
+      });
+  </script>
+</html>
